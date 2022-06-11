@@ -8,9 +8,12 @@ import snowflake.connector
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("SELECT * FROM FRUIT_LOAD_LIST")
-my_data_row = my_cur.fetchall()
+my_data_rows = my_cur.fetchall()
 streamlit.text("The fruit load list contains: ")
-streamlit.text(my_data_row)
+streamlit.dataframe(my_data_rows)
+
+add_my_fruit = streamlit.text_input("What fruit to add ?")
+my_cur.execute("INSERT INTO FRUIT_LOAD_LIST VALUES(\"" + add_my_fruit + "\")")
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 
 my_fruit_list = my_fruit_list.set_index('Fruit')
