@@ -13,7 +13,9 @@ streamlit.text("The fruit load list contains: ")
 streamlit.dataframe(my_data_rows)
 
 add_my_fruit = streamlit.text_input("What fruit to add ?")
-my_cur.execute("INSERT INTO FRUIT_LOAD_LIST VALUES(\"" + add_my_fruit + "\")")
+streamlit.write("User entered", add_my_fruit)
+my_data_rows.append(add_my_fruit)
+
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 
 my_fruit_list = my_fruit_list.set_index('Fruit')
